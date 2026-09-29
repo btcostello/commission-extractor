@@ -22,10 +22,11 @@ image = cv2.imread(args["image"])
 rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 results = pytesseract.image_to_osd(rgb, output_type=Output.DICT)
 # display the orientation information
-print("[INFO] detected orientation: {}".format(results["orientation"]))
-print("[INFO] rotate by {} degrees to correct".format(results["rotate"]))
-print("[INFO] detected script: {}".format(results["script"]))
+#print("[INFO] detected orientation: {}".format(results["orientation"]))
+#print("[INFO] rotate by {} degrees to correct".format(results["rotate"]))
+#print("[INFO] detected script: {}".format(results["script"]))
 
 # rotate the image to correct the orientation
-rotated = imutils.rotate_bound(image, angle=results["rotate"])
-cv2.imwrite(f"{prepImg(args['image'])}{results['rotate']}.png", rotated)
+if results["rotate"] != 0:
+    rotated = imutils.rotate_bound(image, angle=results["rotate"])
+    cv2.imwrite(f"{prepImg(args['image'])}{results['rotate']}.png", rotated)
